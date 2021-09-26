@@ -9,6 +9,9 @@ Loopy is useful for practicing music.
 ![Loopy](./Loopy.png)
 
 ## Controls
+
+Keyboard and click control:
+
 - `A` set the begin loop point
 - `B` set the end loop point
 - `[` nudge `A` backward 1 second
