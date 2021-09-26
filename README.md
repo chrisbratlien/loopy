@@ -21,6 +21,9 @@ The slider controls the playback rate.
 
 The `dragMe` label allows you to drag the widget around your web page.
 
+You can save and load multiple A-B loops using the orange buttons across the top.
+
+
 ## Making your own changes
 
 Paste loopy-snippet.js into Chrome > Developer Tools > Sources > Snippets > + New Snippet
