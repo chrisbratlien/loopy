@@ -9,10 +9,10 @@ Loopy is useful for practicing music.
 ![Loopy](./Loopy.png)
 
 ## Controls
-**A** set the begin loop point
-**B** set the end loop point
-**[**  nudge `A` backward 1 second
-**]**  nudge `B` forward 1 second
+- `A` set the begin loop point
+- `B` set the end loop point
+- `[` nudge `A` backward 1 second
+- `]` nudge `B` forward 1 second
 
 The slider controls the playback rate.
 
