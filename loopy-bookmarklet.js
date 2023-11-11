@@ -98,6 +98,20 @@ BSD.keycodes = {
     LEFT_BRACKET: 219,
     RIGHT_BRACKET: 221
 };
+
+var blinkOnceTimeout = 0;
+
+function blinkOnce(elem) {
+
+    var saveBGC = elem.style.backgroundColor;
+    
+    elem.style.backgroundColor = 'white';
+    clearTimeout(blinkOnceTimeout);
+    setTimeout(function(){
+        elem.style.backgroundColor = saveBGC;
+    },100);
+}
+
 function handleKeys(e) {
     var c = e.keyCode || e.which;
     if (c == BSD.keycodes.a) {
@@ -112,12 +126,18 @@ function handleKeys(e) {
     if (c == BSD.keycodes.RIGHT_BRACKET) {
         nudgeLoopEnd();
     }
+    var elemToBlink = mapKeyToElement[c];
+    if (elemToBlink) {
+        blinkOnce(elemToBlink);
+    }
+    
 }
 document.addEventListener('keydown', handleKeys);
 function updateLoopTimeout() {
     console.log('uLT pbR', media.playbackRate);
     var end = BSD.B || media.duration;
     var when = (end - media.currentTime) * 1 / media.playbackRate;
+    console.log({end, when, a: BSD.A, b: BSD.B});
     if (isNaN(when)) {
         return console.log('when isNaN');
     }
@@ -209,6 +229,14 @@ nB.onclick = function() {
     nudgeLoopEnd();
 }
 ;
+
+var mapKeyToElement = {
+    [BSD.keycodes.a]: btnA,
+    [BSD.keycodes.b]: btnB,
+    [BSD.keycodes.LEFT_BRACKET]: nA,
+    [BSD.keycodes.RIGHT_BRACKET]: nB
+};
+
 var btnResume = document.createElement('button');
 btnResume.style = 'margin: 0 10px;';
 btnResume.innerText = 'resume normal playback';
@@ -237,7 +265,7 @@ btnExit.onclick = function() {
 var db = window.localStorage;
 if (db) {
     [0, 1, 2, 3].forEach(function(i) {
-        var key = 'Loopy::save' + i;
+        var key = 'Loopy::save' + (i+1);
         var slot = document.createElement('div');
         slot.style = 'padding: 2px 5px; display: block-inline; float: left; background: #fa0; border-right: 1px solid #a50;';
         var load = document.createElement('label');
@@ -250,8 +278,9 @@ if (db) {
             var loopInfo = JSON.parse(db[key]);
             BSD.A = loopInfo.A;
             BSD.B = loopInfo.B;
-            updateLoopTimeout();
+            clearTimeout(BSD.loopTimeout);
             media.currentTime = BSD.A;
+            updateLoopTimeout();
         }
         ;
         var save = document.createElement('label');
