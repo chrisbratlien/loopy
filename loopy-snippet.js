@@ -277,9 +277,13 @@ var markup = `
 
 .status {
   background: black;
-  font-size: 2rem;
-  min-width: 30%;
   justify-content: space-evenly;
+}
+.status label,
+.status div {
+  font-size: 2rem;
+  text-align: center;
+  min-width: 32%;
 }
 .status .a {
   color: rgba(0, 255, 0, 0.5);
